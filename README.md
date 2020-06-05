@@ -20,4 +20,4 @@ The .json authentication key has been removed for privacy reasons. Please create
 5. Name the service account and grant it a Project Role of Editor.
 6. Download the JSON file.
 7. Copy the JSON file to your code directory and rename it to client_secret.json
-8. Edit SHEET_EMAILS in data.py by copying client_email from client_secret.json and adding own email.
+8. Share the spreadsheet with your client_email and edit SHEET_EMAILS in data.py by copying client_email from client_secret.json and adding own email.
