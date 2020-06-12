@@ -1,13 +1,10 @@
-import requests
-import lxml.html as lh
-import pandas as pd
-
 from time import sleep
 
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 from formatting import format_sheet
+from webscrape import webscrape_df
 
 SHEET_NAME = "Iron Ore Open Interests"
 SHEET_DATE = "18 May"
@@ -15,44 +12,8 @@ SHEET_EMAILS = ['copy client_email from the client_secret.json here', 'own email
 URL='https://api2.sgx.com/sites/default/files/reports/settlement-prices/2020/05/wcm%40sgx_en%40iron_dsp%4018-May-2020%40Iron_Ore_Options_DSP.html'
 NUM_COL = 12
 
-#reading data from url
-page = requests.get(URL)
-doc = lh.fromstring(page.content)
-#Parse data that are stored between <tr>..</tr> of HTML
-tr_elements = doc.xpath('//tr')
+df = webscrape_df(URL, NUM_COL)
 
-col=[]
-i=0
-#header
-for t in tr_elements[0]:
-    i+=1
-    name=t.text_content()
-    col.append((name,[]))
-
-#data
-for j in range(1,len(tr_elements)):
-    #T is the j'th row of the table
-    T=tr_elements[j]
-    
-    #If row is not of size 12, the //tr data is not from the table we want
-    #just to check
-    if len(T)!=NUM_COL:
-        break
-    
-    #column index
-    i=0
-    
-    #Iterate through each element of the row
-    for t in T.iterchildren():
-        data=t.text_content() 
-        #Append the data to the empty list of the i'th column
-        col[i][1].append(data)
-        #Increment i for the next column
-        i+=1
-
-#create dictionary with column name as key and a list of the column's contents as value
-Dict={title:column for (title,column) in col}
-df=pd.DataFrame(Dict)
 #take out only columns needed
 df = df[['Commodity','Contract Year','Contract Month', 'Contract Type', 'Strike', 'Open Interest']]
 

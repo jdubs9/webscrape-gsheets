@@ -3,7 +3,7 @@
 ## Overview
 This project is a python program to web scrape tabular data, reorganize it, and create and push the data onto a google sheets spreadsheet.
 
-Run data.py to webscrape and create and push to google sheets. It also calls the funtion in formatting.py to format the google sheets, like adding a color gradient conditional formatting. eg: https://docs.google.com/spreadsheets/d/1gysR3bUe8qhgDt55AAuy1jf5gIAjPT98mp8DoEmbmK0/edit?usp=sharing
+Run main.py to webscrape and create and push to google sheets. It calls the funtion in webscrape.py to webscrape and the function in formatting.py to format the google sheets, like adding a color gradient conditional formatting. eg: https://docs.google.com/spreadsheets/d/1gysR3bUe8qhgDt55AAuy1jf5gIAjPT98mp8DoEmbmK0/edit?usp=sharing
 
 ## Objective
 Learn and practice webscraping and basic Google API.
